@@ -1,0 +1,32 @@
+{% extends "learning_logs/base.html" %}
+
+{% block header %}
+    <h2> {{topic}}</h2>
+{% endblock header %}
+
+{% block content %}
+
+<a href="{% url 'learning_logs:new_entry' topic.id %}">add a new entry</a>
+   
+{% for e in entries %}
+
+<div class="panel panel-default">
+<div class="panel-heading">
+    <h3 class="panel-title">
+        {{e.date_added|date:'m d, Y H:i'}}
+        <small>
+            <a href="{% url 'learning_logs:edit_entry' e.id %}">edit</a>
+        </small>
+    </h3>
+    
+</div>
+<div class="panel-body">
+    {{e.text|linebreaks}}
+</div>
+</div>
+
+{% empty %}
+    no entries have been added yet!
+{% endfor %}
+
+{% endblock content %}
